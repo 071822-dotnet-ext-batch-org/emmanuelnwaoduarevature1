@@ -6,7 +6,7 @@ namespace consoleapp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Software engineering program is going great so far");
+            Console.WriteLine("The Software engineering program is going great so far");
         }
     }
 }
