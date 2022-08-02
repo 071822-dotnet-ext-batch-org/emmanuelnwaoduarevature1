@@ -1,0 +1,4 @@
+Array.Sort(arr);
+long min = List<int> arr.Take(4).Sum(item => (long)item);
+long max = List<int> arr.Skip(1).Sum(item => (long)item);
+Console.WriteLine($"{min} , {max}");
