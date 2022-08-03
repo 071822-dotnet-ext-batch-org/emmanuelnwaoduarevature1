@@ -1,0 +1,20 @@
+ public static List<int> gradingStudents(List<int> grades)
+    {
+      
+        List<int> finalgrade = new List<int>();
+        foreach (var studentgrade in grades)
+        {
+            if(studentgrade % 5< 3 || studentgrade < 38){
+                
+                finalgrade.Add(studentgrade);
+                
+            }
+            else{
+                
+                finalgrade.Add(studentgrade + (5 - studentgrade % 5));
+            }
+       
+    }
+      
+      return finalgrade;
+    }
