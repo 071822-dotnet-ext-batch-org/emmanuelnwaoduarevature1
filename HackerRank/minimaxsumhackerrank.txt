@@ -8,3 +8,4 @@ public static void miniMaxSum(List<int> arr)
         max = arr.Skip(1).Sum(item => (long)item);
        Console.WriteLine($"{min} {max}");
        }
+
