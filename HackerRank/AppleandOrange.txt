@@ -1,0 +1,30 @@
+ public static void countApplesAndOranges(int s, int t, int a, int b, List<int> apples, List<int> oranges)
+    {
+        int countofApples = 0;
+        int countofOranges = 0;
+        
+        foreach (int orange in oranges){
+            
+            int orangeDist = b + orange;
+            
+            if(orangeDist <= t && orangeDist >= s){
+                
+                countofOranges++;
+                
+            } 
+        }
+        foreach (int apple in apples){
+            
+            int applDist = a + apple;
+            
+            if(applDist <= t && applDist >= s){
+                
+                countofApples++;
+                
+                
+            } 
+     
+        }
+      Console.WriteLine(countofApples);
+      Console.WriteLine(countofOranges);
+    }

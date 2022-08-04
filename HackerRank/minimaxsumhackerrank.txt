@@ -1,6 +1,5 @@
 public static void miniMaxSum(List<int> arr)
     {
-    
         long min = 0;
         long max = 0;
         
@@ -8,5 +7,5 @@ public static void miniMaxSum(List<int> arr)
         min = arr.Take(4).Sum(item => (long)item);
         max = arr.Skip(1).Sum(item => (long)item);
        Console.WriteLine($"{min} {max}");
-}
+       }
 
