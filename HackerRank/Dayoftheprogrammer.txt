@@ -1,4 +1,4 @@
- public static string dayOfProgrammer(int year)
+  public static string dayOfProgrammer(int year)
     {
         string Pyear = year.ToString();
         
@@ -6,32 +6,32 @@
        
        if( year == 1918){
            
-           date = "26.09." + year;
+           date = "26.09." + Pyear;
        }
-       else if(year > 1919){
+       else if(year > 1918){
            
            if( year%400 == 0 || (year%4 == 0 && year%100 != 0)){
                
-              date = "12.09." + year;
+              date = "12.09." + Pyear;
           }
           else{
                
-              date = "13.09." + year; 
+              date = "13.09." + Pyear; 
            }
         }
            
-       else if(year < 1917){
+       else if(year < 1918){
            
            if(year% 4 == 0){
                
-              date = "12.09." + year;
+              date = "12.09." + Pyear;
            }
            else{
                
-              date = "13.09." + year; 
+              date = "13.09." + Pyear; 
            } 
         }
            
        return date;
          
-    }     
+    } 
