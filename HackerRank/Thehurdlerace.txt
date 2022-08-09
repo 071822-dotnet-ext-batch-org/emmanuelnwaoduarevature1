@@ -1,0 +1,26 @@
+    public static int hurdleRace(int k, List<int> height)
+    {
+         int max  = height[0];
+        
+        
+         foreach(int mem in height){
+             
+             if(mem > max){ 
+                 
+                max = mem;
+             
+             }
+              
+         }
+         if(k < max){
+                 
+            return max - k;
+                 
+        }
+         else
+                 
+           return 0;    
+             
+         
+    }//Eom
+}//Eoc
