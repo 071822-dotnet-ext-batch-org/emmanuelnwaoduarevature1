@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer;
 
 
 namespace Project1
@@ -18,28 +19,22 @@ namespace Project1
 
            Register register = new Register();
 
-           EmployeeRequest emploReq = new EmployeeRequest();
-
-           Manager mandec = new Manager();
+           Reimbursements mandec = new Reimbursements();
 
 
-           //Call the method to register and/or sign in an employee
+           //Call the method to register and/or sign in an employee//  
            
            log.HaveURegistered();
 
-           //Call the method to check for existing employee
-
-           log.Checkexistingemployee();
-
-
-           //Call the method to promt the employee to submit a reimbursement now or log out
+           
+           //Call the method to prompt the employee to submit a reimbursement now or log out
 
            log.submitReimbursementFormNow();
 
 
            //Call the method to enter the employees expenses
 
-           emploReq.getemployeeexpense();
+           mandec.getemployeeexpense();
            
 
            //Call the method to show the manager's decision and expenses
