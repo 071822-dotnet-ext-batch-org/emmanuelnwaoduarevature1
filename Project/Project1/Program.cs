@@ -24,6 +24,9 @@ namespace Project1
            Employee employee = new Employee();
 
            Adonetaccess _repo = new Adonetaccess();
+
+
+           mandec.filterDecisions();
          
 
            //Call the method to register and/or sign in an employee//  
@@ -45,6 +48,9 @@ namespace Project1
           _repo.InsertNewReimbursement(employee);
 
           _repo.InsertNewManagerDecision(employee);
+
+
+          
             
         }   
 
