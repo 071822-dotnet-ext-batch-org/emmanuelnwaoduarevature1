@@ -1,0 +1,207 @@
+/This method will query the DB for EmployeeID, FirstName, LastName, UserName, Password
+
+        public Employee? GetEmployeeIfExist()
+        {
+
+            using (SqlCommand command = new SqlCommand($"SELECT EmployeeID, FirstName, LastName, UserName, Password FROM Employee", conn))
+            {
+                  conn.Open();
+                  SqlDataReader? ret =  command.ExecuteReader();
+                
+
+                  if (ret.Read())
+
+                {
+                    Employee employeeData = new Employee()
+                    {
+
+                         EmployeeID = ret.GetGuid(0),
+                         fName = ret.GetString(1),
+                         lName = ret.GetString(2),
+                         userName = ret.GetString(3),
+                         passWord = ret.GetString(4),
+
+
+
+                    };
+
+                    conn.Close();
+                    return employeeData;
+
+                }
+                 else
+                {
+                   conn.Close();
+                    return null;
+                }
+            }
+
+
+
+        }//EoM
+
+
+        
+
+        public Employee? Checkexistingemployee(string userName, string passWord)
+        {
+
+            using (SqlCommand command = new SqlCommand($"SELECT EmployeeID, FirstName, LastName, UserName, Password FROM Employee WHERE UserName = @UserName AND Password = @Password ", conn))
+            {
+                command.Parameters.AddWithValue("@UserName", userName);// add dynamic data like this to protect against SQL Injection.
+                command.Parameters.AddWithValue("@Password", passWord);
+                  conn.Open();
+                  SqlDataReader? ret =  command.ExecuteReader();
+                
+
+                  if (ret.Read())
+
+                {
+                    
+                    
+                    Employee employeeData = new Employee();
+                    employeeData.EmployeeID = ret.GetGuid(0);
+                    employeeData.fName = ret.GetString(1);
+                    employeeData.lName = ret.GetString(2);
+                    employeeData.userName = ret.GetString(3);
+                    employeeData.passWord = ret.GetString(4);
+
+                    conn.Close();
+                    return employeeData;   
+
+                }
+                 else
+                {
+                    conn.Close();
+                    return null;
+                }
+            }
+
+
+
+        }//EoM
+
+
+
+        //This method updates the existing employee table with with employee 
+
+      public  async Task<int> InsertNewEmployeeAsync(Employee employee)
+       {
+
+          using (SqlCommand command = new SqlCommand($"INSERT INTO [dbo].[Employee] (EmployeeID, FirstName, LastName, UserName, Password, EmployeeRole, Manager_FirstName, Manager_LastName)  VALUES (@EmployeeID, @FirstName, @LastName, @UserName, @Password, @EmployeeRole, @Manager_FirstName, @Manager_LastName)", conn))
+           {        
+                command.Parameters.AddWithValue("@EmployeeId", employee.EmployeeID);
+                command.Parameters.AddWithValue("@FirstName", employee.fName);
+                command.Parameters.AddWithValue("@LastName", employee.lName);
+                command.Parameters.AddWithValue("@UserName", employee.userName);
+                command.Parameters.AddWithValue("@Password", employee.passWord); 
+                command.Parameters.AddWithValue("@EmployeeRole", employee.employeeRole);
+                command.Parameters.AddWithValue("@Manager_FirstName", employee.managerFName);
+                command.Parameters.AddWithValue("@Manager_LastName", employee.managerName);
+                
+                conn.Open();
+                int ret =  await command.ExecuteNonQueryAsync();
+
+                if (ret == 1)
+                {
+                    conn.Close();
+                    return ret;
+                }
+                else
+                {
+                    conn.Close();
+                    return ret;
+                }
+            }
+
+
+        }//EoM
+
+        //This method updates the with new reimburement from employee 
+
+        public  int InsertNewReimbursement(Employee employee){
+
+        using (SqlCommand command = new SqlCommand($"INSERT INTO [dbo].[Reimbursement] (ReimbursementID, Travel_Lodge_Cost, Travel_Lodge_Description, Food_Cost, Food_Description, Other_Cost, Other_Description, EmployeeReimbursemnetID) VALUES (@ReimbursementID, @Travel_Lodge_Cost, @Travel_Lodge_Description, @Food_Cost, @Food_Description, @Other_Cost, @Other_Description, @EmployeeReimbursementID)", conn))
+        {        
+
+                command.Parameters.AddWithValue("@ReimbursementID", employee.ReimbursementID);
+                command.Parameters.AddWithValue("@Travel_Lodge_Cost", employee.travelCost);
+                command.Parameters.AddWithValue("@Travel_Lodge_Description", employee.travelDescription);
+                command.Parameters.AddWithValue("@Food_Cost", employee.foodCost);
+                command.Parameters.AddWithValue("@Food_Description", employee.foodDescription);
+                command.Parameters.AddWithValue("Other_Cost", employee.otherCost);
+                command.Parameters.AddWithValue("@Other_Description", employee.otherDescription);
+                command.Parameters.AddWithValue("@EmployeeReimbursementID", employee.EmployeeReimbursementID);
+                
+                conn.Open();
+                int ret = command.ExecuteNonQuery();
+
+                if (ret == 1)
+                {
+                    conn.Close();
+                    return ret;
+                }
+                else
+                {
+                    conn.Close();
+                    return ret;
+                }
+            }
+
+
+
+        }//EoM
+
+        //This method updates the with new manager's decision on employee reimburement 
+        public int InsertNewManagerDecision(Employee employee)
+        {
+
+
+          using (SqlCommand command = new SqlCommand($"INSERT INTO [dbo].[ManagerDecision] (ManagerDecisionID, Travel_Lodge_Decision, Food_Decision, Other_Decision, Reimbursement_DecisionID) VALUES (@ManagerDecisionID, @Travel_Lodge_Decision, @Food_Decision, @Other_Decision,@Reimbursement_DecisionID)", conn))
+           {        
+
+                command.Parameters.AddWithValue("@ManagerDecisionID", employee.ManagerDecisionID);
+                command.Parameters.AddWithValue("@Travel_Lodge_Decision", employee.travelDecision);
+                command.Parameters.AddWithValue("@Food_Decision", employee.foodDecision);
+                command.Parameters.AddWithValue("@Other_Decision", employee.otherDecision);
+                command.Parameters.AddWithValue("@Reimbursement_DecisionID", employee.Reimbursement_DecisionID);
+                
+                
+                conn.Open();
+                int ret = command.ExecuteNonQuery();
+
+                if (ret == 1)
+                {
+                    conn.Close();
+                    return ret;
+                }
+                else
+                {
+                    conn.Close();
+                    return ret;
+                }
+            }
+
+
+
+        }//EoM
+
+    //   public void RejectedDecisions()
+    //    {
+
+    //      using (SqlCommand command = new SqlCommand($"Select * from [dbo].[Employee] full join [dbo].[Reimbursement] on Employee.EmployeeID = Reimbursement.EmployeeReimbursementID full join [dbo].[ManagerDecision] on Reimbursement.ReimbursementID = ManagerDecision.Reimbursement_DecisionID WHERE Travel_Lodge_Decision = 'Reject' or Food_Decision = 'Reject' or Other_Decision = 'Reject')", conn))
+    //       {        
+
+    //         conn.Open();
+    //         SqlDataReader myReader = command.ExecuteReader();
+
+
+    //          while (myReader.Read()){
+
+
+    //         Console.WriteLine("\t{0}\t\t{1}\t\t{3}\t\t{4}\t\t{5}\t\t{6}", myReader.GetInt32(0), myReader.GetString(1), myReader.GetString(2), myReader.GetInt32(19), myReader.GetString(20), myReader.GetString(21));
+    //         }
+
+    //       }
+
+    //  }//EoM
