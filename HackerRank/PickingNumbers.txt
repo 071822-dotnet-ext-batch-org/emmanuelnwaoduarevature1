@@ -1,0 +1,16 @@
+
+public static int pickingNumbers(List<int> a)
+    {
+       
+      int[] pN = new int[100];
+        int max=0;
+        for (int i=0; i<a.Count(); i++){
+            pN[a[i]]++;
+        }
+        for (int i=0; i<99; i++){
+            if(max<pN[i]+pN[i+1]){
+            max=pN[i]+pN[i+1];
+            }
+        }
+        return max;
+    }
